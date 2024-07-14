@@ -110,7 +110,7 @@ toast.error(response.data.message)
               value={data.price}
               type="Number"
               name="price"
-              placeholder="$20"
+              placeholder="Rs 200"
             />
           </div>
         </div>
