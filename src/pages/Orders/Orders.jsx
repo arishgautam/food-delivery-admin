@@ -68,7 +68,7 @@ const Orders = ({ url }) => {
               <p className="order-item-phone">{order.address.phone}</p>
             </div>
             <p>Items: {order.items.length}</p>
-            <p>${order.amount}</p>
+            <p>Rs {order.amount}</p>
             <select
               value={order.status}
               onChange={(event) => statusHandler(event, order._id)}
