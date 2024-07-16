@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 
-const url = import.meta.env.process.BASE_URL;
+const url = import.meta.env.process.VITE_BASE_URL;
 // const url = "http://localhost:4000"
   return (
     <div>

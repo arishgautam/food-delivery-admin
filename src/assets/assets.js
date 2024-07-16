@@ -14,4 +14,4 @@ export const assets = {
   parcel_icon,
 };
 
-export const url = import.meta.env.process.BASE_URL;
+export const url = import.meta.env.process.VITE_BASE_URL;
