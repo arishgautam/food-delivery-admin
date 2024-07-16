@@ -11,7 +11,7 @@ const List = ({url}) => {
 const [list,setlist] = useState([]);
 
 const fetchlist = async () => {
-  const response = await axios.get(`${url}/api/food/list`);
+  const response = await axios.get(`${url}api/food/list`);
   if (response?.data?.sucess) {
     setlist(response?.data?.data)
   }
@@ -21,7 +21,7 @@ const fetchlist = async () => {
 }
 
 const removeFood = async(foodId) => {
-const response = await axios.post(`${url}/api/food/remove`,{id:foodId})
+const response = await axios.post(`${url}api/food/remove`,{id:foodId})
 await fetchlist();
 if (response.data.sucess) {
   toast.success(response.data.message)
