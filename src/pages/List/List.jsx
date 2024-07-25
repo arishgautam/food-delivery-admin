@@ -1,68 +1,63 @@
+import { useState } from "react";
+import "./List.css";
+import PropTypes from "prop-types";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+const List = ({ url }) => {
+  const [list, setlist] = useState([]);
 
-import { useState } from 'react'
-import './List.css'
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
-const List = ({url}) => {
+  const fetchlist = async () => {
+    const response = await axios.get(`${url}api/food/list`);
+    if (response?.data?.sucess) {
+      setlist(response?.data?.data);
+    } else {
+      toast.error("Error");
+    }
+  };
 
+  const removeFood = async (foodId) => {
+    const response = await axios.post(`${url}api/food/remove`, { id: foodId });
+    await fetchlist();
+    if (response.data.sucess) {
+      toast.success(response.data.message);
+    } else {
+      toast.error("Error");
+    }
+  };
 
-const [list,setlist] = useState([]);
-
-const fetchlist = async () => {
-  const response = await axios.get(`${url}api/food/list`);
-  if (response?.data?.sucess) {
-    setlist(response?.data?.data)
-  }
-  else{
-    toast.error("Error")
-  }
-}
-
-const removeFood = async(foodId) => {
-const response = await axios.post(`${url}api/food/remove`,{id:foodId})
-await fetchlist();
-if (response.data.sucess) {
-  toast.success(response.data.message)
-}
-else{
-  toast.error("Error")
-}
-}
-
-useEffect(()=>{
-fetchlist();
-},[])
+  useEffect(() => {
+    fetchlist();
+  }, []);
 
   return (
-    <div className='list-add flex-col'>
-<p>All Foods List</p>
-<div className="list-table">
-  <div className="list-table-format title">
-<b>Image</b>
-<b>Name</b>
-<b>Category</b>
-<b>Price</b>
-<b>Action</b>
-  </div>
-  {list.map((item,index)=>{
-    return (
-      <div key={index} className='list-table-format'>
-<img src={`${url}/images/`+item.image} alt="" />
-<p>{item.name}</p>
-<p>{item.category}</p>
-<p>Rs {item.price}</p>
-<p onClick={()=>removeFood(item._id)} className='cursor'>X</p>
+    <div className="list-add flex-col">
+      <p>All Foods List</p>
+      <div className="list-table">
+        <div className="list-table-format title">
+          <b>Image</b>
+          <b>Name</b>
+          <b>Category</b>
+          <b>Price</b>
+          <b>Action</b>
+        </div>
+        {list.map((item, index) => {
+          return (
+            <div key={index} className="list-table-format">
+              <img src={item.image} alt="" />
+              <p>{item.name}</p>
+              <p>{item.category}</p>
+              <p>Rs {item.price}</p>
+              <p onClick={() => removeFood(item._id)} className="cursor">X</p>
+            </div>
+          );
+        })}
       </div>
-    )
-  })}
-</div>
     </div>
-  )
-}
+  );
+};
 List.propTypes = {
   url: PropTypes.string.isRequired,
 };
 
-export default List
+export default List;

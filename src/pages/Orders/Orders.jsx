@@ -32,6 +32,7 @@ const Orders = ({ url }) => {
   useEffect(() => {
     fetchAllOrders();
   }, []);
+  console.log(orders)
 
   return (
     <div className="order add">
