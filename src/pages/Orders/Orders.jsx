@@ -8,19 +8,16 @@ const Orders = ({ url }) => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
-    const response = await axios.get(url + "api/order/list");
+    const response = await axios.get(url + "/api/order/list");
     if (response.data.success) {
       setOrders(response.data.data);
-      console.log(response.data.data);
     } else {
       toast.error("Error");
     }
   };
 
-
   const statusHandler = async (event, orderId) => {
-    console.log(orderId)
-    const response = await axios.post(url + "api/order/status", {
+    const response = await axios.post(url + "/api/order/status", {
       orderId,
       status: event.target.value,
     });
@@ -52,26 +49,26 @@ const Orders = ({ url }) => {
                 })}
               </p>
               <p className="order-item-name">
-                {order.address.firstName + " " + order.address.lastName}
+                {order?.address?.firstName + " " + order?.address?.lastName}
               </p>
               <div className="order-item-address">
-                <p>{order.address.street + ","}</p>
+                <p>{order?.address?.street + ","}</p>
                 <p>
-                  {order.address.city +
+                  {order?.address?.city +
                     ", " +
-                    order.address.state +
+                    order?.address?.state +
                     ", " +
-                    order.address.country +
+                    order?.address?.country +
                     ", " +
-                    order.address.zipcode}
+                    order?.address?.zipcode}
                 </p>
               </div>
-              <p className="order-item-phone">{order.address.phone}</p>
+              <p className="order-item-phone">{order?.address?.phone}</p>
             </div>
-            <p>Items: {order.items.length}</p>
-            <p>Rs {order.amount}</p>
+            <p>Items: {order?.items?.length}</p>
+            <p>Rs {order?.amount}</p>
             <select
-              value={order.status}
+              value={order?.status}
               onChange={(event) => statusHandler(event, order._id)}
             >
               <option value="Food Processing">Food Processing</option>

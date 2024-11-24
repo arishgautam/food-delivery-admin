@@ -28,8 +28,7 @@ formData.append("description",data.description)
 formData.append("price",Number(data.price))
 formData.append("category",data.category)
 formData.append("image",image)    
-console.log(image)
-const response = await axios.post(`${url}api/food/add`,formData);
+const response = await axios.post(`${url}/api/food/add`,formData);
 if (response.data.sucess) {
   setData({
     name: "",
